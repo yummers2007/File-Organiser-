@@ -37,42 +37,46 @@ for file in directory.iterdir():
         files.append(file.name)
 
 #  appending files to thier directories
-for file in files:
-    
-    #  source file
-    source = Path(path + "/" + file)
-    
-    #  file extension match
-    python_match = re.search(python, file)
-    cpp_match = re.search(cpp, file)
-    java_match = re.search(java, file)
-    js_match = re.search(javascript, file)
-    
-    if python_match:
-        destination = Path(path + "/" + "Python")
-        shutil.move(source, destination)
-        
-    elif cpp_match:
-        destination = Path(path + "/" + "C++")
-        shutil.move(source, destination)
-        
-    elif java_match:
-        destination = Path(path + "/" + "Java")
-        shutil.move(source, destination)
-        
-    elif js_match:
-        destination = Path(path + "/" + "Javascript")
-        shutil.move(source, destination)
-
-#  displays files appended 
-print("  File(s) appended : ")
-
-if len(files) != 0:
+try:
     for file in files:
-        print("  " + file)
         
-else:
-    print("  " + "None")
+        #  source file
+        source = Path(path + "/" + file)
+        
+        #  file extension match
+        python_match = re.search(python, file)
+        cpp_match = re.search(cpp, file)
+        java_match = re.search(java, file)
+        js_match = re.search(javascript, file)
+        
+        if python_match:
+            destination = Path(path + "/" + "Python")
+            shutil.move(source, destination)
+                
+        elif cpp_match:
+            destination = Path(path + "/" + "C++")
+            shutil.move(source, destination)
+                
+        elif java_match:
+            destination = Path(path + "/" + "Java")
+            shutil.move(source, destination)
+                
+        elif js_match:
+            destination = Path(path + "/" + "Javascript")
+            shutil.move(source, destination)
+                
+        #  displays files appended 
+        print("  File(s) appended : ")
     
-#  no. of files appended
-print("\n  No. of files appended : " + str(len(files)))
+        if len(files) != 0:
+            for file in files:
+                print("  " + file)
+            
+        else:
+            print("  " + "None")
+        
+        #  no. of files appended
+        print("\n  No. of files appended : " +             str(len(files)))
+            
+except shutil.Error:
+    print("\n  File(s) already exist in the respective folder")
